@@ -287,6 +287,16 @@
     border: 1px solid #BFB9B4;
     color: white;
 }
+.chedo-content{
+    border: 3px solid;
+    border-radius: 20px;
+    padding-inline: 15px;
+    display: flex;
+    font-size: 20px;
+    font-weight: bold;
+    align-items: center;
+    gap: 5px;
+}
 
 
 
