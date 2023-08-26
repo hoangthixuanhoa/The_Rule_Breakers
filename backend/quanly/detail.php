@@ -62,12 +62,12 @@
                         }else{
                             $role="Chuyên gia";
                         }
-                        echo "ID: ",$id,"<br>";
-                        echo "Tên đăng nhập: ",$username,"<br>";
-                        echo "Email: ",$email,"<br>";
-                        echo "Vai trò: ",$role,"<br>";
-                        echo "Số người xem: ", $seen, "<br>";
-                        echo "Báo cáo: ",$report,"<br>";
+                        echo "<p>ID: ",$id,"</p>";
+                        echo "<p>Tên đăng nhập: ",$username,"</p>";
+                        echo "<p>Email: ",$email,"</p>";
+                        echo "<p>Vai trò: ",$role,"</p>";
+                        echo "<p>Số người xem: ", $seen, "</p>";
+                        echo "<p>Báo cáo: ",$report,"</p>";
                         echo "<button class='btn-clk' onclick='change($id)'>Sửa</button>";
                         echo "<button class='btn-clk' onclick='deleteIF($id)'>Xóa</button>";
                     }

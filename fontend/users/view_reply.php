@@ -92,7 +92,7 @@ $result_get_letters = $stmt_get_letters->get_result();
     <!-- Ô vuông "Hồi âm" -->
     <div class="tatca">
         <div class="tieude">
-            <span class="hoiam">Hồi âm</span>
+            <span class="hoiam">Thư hồi âm</span>
         </div>
 
         <br>

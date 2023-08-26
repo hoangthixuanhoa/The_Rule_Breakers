@@ -112,7 +112,7 @@ if ($conn->connect_error) {
                         echo "<div class='info-read' id='chedo'><p class='info-read-p'>Chế độ rừng: </p><p class='info-read-p'><input type='radio' name='chedo' value='public'>Công khai</p>";
                         echo "<p class='info-read-p'><input type='radio' name='chedo' value='private' checked>Riêng tư</p></div>";
                     }
-                    echo "<div id='content-change-info'><p class='info-read-p'>Nội dung: </p><input id='content_ch_in' name='content' type='text' value='",$content, "'></div>";
+                    echo "<div id='content-change-info'><p class='info-read-p'>Nội dung: </p><textarea id='content_ch_in' name='content' type='text'>",$content,"</textarea></div>";
                     echo "<div><a class='btn-ch' id='a-ch' href='read_journal.php?id=$id'>Hủy</a>";
                     echo "<input id='btn-ch-sub' type='submit' value='Lưu'></div>";
                     echo "</form>";
