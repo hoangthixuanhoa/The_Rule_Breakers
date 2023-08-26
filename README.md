@@ -10,6 +10,8 @@ Trang web gồm các chức năng chính:
 - Đọc bài viết được đăng
 - Soạn thư cho chuyên gia/người dùng và xem thư phản hồi
 - Viết nhật ký và xem nhật ký hàng ngày
+- Xem rừng cây cùng mọi người
+- Công khai rừng/nhật ký
 
 # Thành viên
 Trang web được phát triển bởi:
