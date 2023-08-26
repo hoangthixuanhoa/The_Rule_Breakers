@@ -99,6 +99,7 @@ if (!isset($_SESSION["user_id"])) {
             </div>
             <div id="reemo-container">
                 <?php
+                $query = "";
                 if($count!=0)
                 {
                     if($count_vui>$count_buon){

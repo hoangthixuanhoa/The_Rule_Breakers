@@ -2,6 +2,12 @@
 // Gọi session_start() để bắt đầu phiên làm việc
 session_start();
 
+// Kiểm tra xem người dùng đã đăng nhập hay chưa
+if (!isset($_SESSION["ma_id"])) {
+    // Nếu không có phiên làm việc, chuyển hướng người dùng đến trang đăng nhập
+    header("Location: ../accounts/login.php");
+    exit();
+}
 
 // Kết nối đến cơ sở dữ liệu (chú ý thay đổi thông tin kết nối phù hợp với máy bạn)
 $servername = "localhost";
@@ -24,7 +30,11 @@ if ($conn->connect_error) {
     <title>Trang chủ</title>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="../css/style.css">
-
+    <style>
+        body{
+            background-color:#FFF6F0;
+        }
+    </style>
     <script>
         function changeWeb(){
             window.location.href ='add_news.php';
@@ -33,15 +43,17 @@ if ($conn->connect_error) {
 </head>
 <body>
     <div id="pattern">
-        <div class="flex-left">Logo</div>
-        <div class="flex-right">a</div>
+        <div class="flex-left"><img id="logo" src="../img/logo.png" height= "60px"></div>
+        <div class="flex-right"></div>
     </div>
+    <br>
+    
     <div id='body'>
         <header>
             <ul id="menu-ul">
-                <li><a class="menu-content" id="home" href="home.php">Trang chủ</a></li>
+                <li><a class="menu-content" id="home" href="home.php">Quản lý bài viết</a></li>
                 <li><a href="../quanly/quanly_users.php">Người dùng</a></li>
-                <li><a class="menu-content" id="pro" href="../accounts/profile.php">Pro5</a></li>
+                <li><a class="menu-content" id="pro" href="../accounts/profile.php">Trang cá nhân</a></li>
             </ul>
         </header>
         <main id="home-container">
@@ -53,8 +65,8 @@ if ($conn->connect_error) {
                         <th>ID</th>
                         <th>Ảnh</th>
                         <th>Tên</th>
-                        <th>Mô tả ngắn</th>
                         <th>Nội dung</th>
+                        <th>Ngày đăng</th>
                         <th>trạng thái</th>
                         <th></th>
                     </tr>

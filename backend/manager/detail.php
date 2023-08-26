@@ -4,6 +4,16 @@
     <title>Quản Lý</title>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <style>
+        .chu{
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 3px;
+        }
+        body{
+            background-color:#FFF6F0;
+        }
+    </style>
     <script>
         function change(id){
             window.location.href = "change_news.php?id="+id;
@@ -17,20 +27,23 @@
     </script>
 </head>
 <body>
-    <div id="logo">
-        <img>
+    <div id="pattern">
+        <div class="flex-left"><img id="logo" src="../img/logo.png" height= "60px"></div>
+        <div class="flex-right"></div>
     </div>
+    <br>
+
     <div id='body'>
         <header>
             <ul id="menu-ul">
-                <li><a class="menu-content" id="home" href="home.php">Trang chủ</a></li>
+                <li><a class="menu-content" id="home" href="home.php">Quản lý bài viết</li>
                 <li><a href="../quanly/quanly_users.php">Người dùng</a></li>
-                <li><a class="menu-content" id="pro" href="../accounts/profile.php">Pro5</a></li>
+                <li><a class="menu-content" id="pro" href="../accounts/profile.php">Trang cá nhân</a></li>
             </ul>
         </header>
         <main id="home-container">
             <h3 class="h3-content">Xem bài viết</h3>
-            <div class='content-detail'>
+            <div id='content-detail'>
                 <?php
                 $userID = $_GET['id'];
                 session_start();
@@ -65,12 +78,12 @@
                                 $status='Action';
                             }
                     }
-                    echo "Ảnh: <img src='../../uploads/",$avatar,"' width='200px'></br>";
-                    echo "Tiêu đề: ",$title,"<br>";
-                    echo "Mô tả: ",$description,"<br>";
-                    echo "Nội dung: ",$content,"<br>";
-                    echo "Trạng thái: ",$status,"<br>";
-                    echo "<button class='btn-clk' onclick='change($id)'>Sửa</button>";
+                    echo "<div class='chu'>Ảnh: <img src='../../uploads/",$avatar,"' width='200px'></div></br>";
+                    echo "<div class='chu'>Tiêu đề: ",$title,"</div><br>";
+                    echo "<div class='chu'>Mô tả: ",$description,"</div><br>";
+                    echo "<div class='chu'>Nội dung: ",$content,"</div><br>";
+                    echo "<div class='chu'>Trạng thái: ",$status,"</div><br>";
+                    echo "<button class='btn-clk' onclick='change($id)'>Sửa</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
                     echo "<button class='btn-clk' onclick='deleteIF($id)'>Xóa</button>";
                 }
                 ?>

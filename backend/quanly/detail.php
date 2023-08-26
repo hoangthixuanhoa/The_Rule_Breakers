@@ -4,6 +4,18 @@
     <title>Quản Lý</title>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <style>
+        body{
+            background-color:#FFF6F0;
+        }
+        p, .btn-clk{
+            margin-left: 20px;
+        }
+        p{
+            font-weight: bold;
+            font-size: 20px;
+        }
+    </style>
     <script>
         function change(id){
             window.location.href = "change_user.php?id="+id;
@@ -17,20 +29,23 @@
     </script>
 </head>
 <body>
-    <div id="logo">
-        <img>
+    <div id="pattern">
+        <div class="flex-left"><img id="logo" src="../img/logo.png" height= "60px"></div>
+        <div class="flex-right"></div>
     </div>
+    <br>
+
     <div id='body'>
         <header>
         <ul id="menu-ul">
-                <li><a class="menu-content" id="home" href="../manager/home.php">Trang chủ</a></li>
+                <li><a class="menu-content" id="home" href="../manager/home.php">Quản lý bài viết</a></li>
                 <li><a href="quanly_users.php">Người dùng</a></li>
-                <li><a class="menu-content" id="pro" href="../accounts/profile.php">Pro5</a></li>
+                <li><a class="menu-content" id="pro" href="../accounts/profile.php">Trang cá nhân</a></li>
             </ul>
         </header>
         <main id="home-container">
             <h3 class="h3-content">Xem thông tin người dùng</h3>
-            <div class='content-detail'>
+            <div id='content-detail'>
                 <?php
                 $userID = $_GET['id'];
                 session_start();
@@ -62,12 +77,12 @@
                         }else{
                             $role="Chuyên gia";
                         }
-                        echo "<p>ID: ",$id,"</p>";
-                        echo "<p>Tên đăng nhập: ",$username,"</p>";
-                        echo "<p>Email: ",$email,"</p>";
-                        echo "<p>Vai trò: ",$role,"</p>";
-                        echo "<p>Số người xem: ", $seen, "</p>";
-                        echo "<p>Báo cáo: ",$report,"</p>";
+                        echo "<p>ID: ",$id,"</p><br>";
+                        echo "<p>Tên đăng nhập: ",$username,"</p><br>";
+                        echo "<p>Email: ",$email,"</p><br>";
+                        echo "<p>Vai trò: ",$role,"</p><br>";
+                        echo "<p>Số người xem: ", $seen, "</p><br>";
+                        echo "<p>Báo cáo: ",$report,"</p><br>";
                         echo "<button class='btn-clk' onclick='change($id)'>Sửa</button>";
                         echo "<button class='btn-clk' onclick='deleteIF($id)'>Xóa</button>";
                     }
