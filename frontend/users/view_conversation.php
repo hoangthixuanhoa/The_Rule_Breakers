@@ -31,6 +31,16 @@ $stmt_conversation = $conn->prepare($sql_conversation);
 $stmt_conversation->bind_param("iiiiiiii", $_SESSION["user_id"], $contacted_user_id, $contacted_user_id, $_SESSION["user_id"], $_SESSION["user_id"], $contacted_user_id, $contacted_user_id, $_SESSION["user_id"]);
 $stmt_conversation->execute();
 $result_conversation = $stmt_conversation->get_result();
+
+// Fetch the username of the contacted user for display
+$sql_contacted_username = "SELECT username FROM users WHERE id = ?";
+$stmt_contacted_username = $conn->prepare($sql_contacted_username);
+$stmt_contacted_username->bind_param("i", $contacted_user_id);
+$stmt_contacted_username->execute();
+$result_contacted_username = $stmt_contacted_username->get_result();
+$contacted_username = $result_contacted_username->fetch_assoc()["username"];
+?>
+
 ?>
 
 <!DOCTYPE html>
@@ -56,11 +66,47 @@ $result_conversation = $stmt_conversation->get_result();
             height: 60px;
         }
         .chat-message {
-            background-color: #f1f1f1;
+            background-color: #FAA5C4;
             border-radius: 5px;
             padding: 10px;
             margin: 10px 0;
             max-width: 70%;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #FFF6F0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .conversation {
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: #fbb8d1;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .chat-container {
+            margin-top: 20px;
+        }
+
+        .chat-message {
+            background-color: #f1f1f1;
+            border-radius: 10px;
+            padding: 10px;
+            margin: 10px 0;
+            max-width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .chat-message strong {
+            color: #2a2a2a;
+            display: block;
+            margin-bottom: 5px;
         }
     </style>
 </head>
@@ -84,7 +130,7 @@ $result_conversation = $stmt_conversation->get_result();
     <br>
     <br>
     <div class="conversation">
-        <h2>Cuộc trò chuyện với <?php echo $contacted_user_id; ?></h2>
+    <h2>Cuộc trò chuyện với <?php echo $contacted_username; ?></h2>
         <div class="chat-container">
             <?php
             while ($message = $result_conversation->fetch_assoc()) {
