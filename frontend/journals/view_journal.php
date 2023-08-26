@@ -22,6 +22,12 @@ if (!isset($_SESSION["user_id"])) {
             echo "<script> alert('$error');</script>";
             unset($_SESSION['error_jour']);
         }
+        //include 'tree_garden.php';
+        if(isset($_SESSION['msg_buon'])){
+            $msg=$_SESSION['msg_buon'];
+            echo "<script>if(confirm('$msg')){window.location.href='../users/compose.php'}</script>";
+            unset($_SESSION['msg_buon']);
+        }       
     ?>
     <style>
         #garden{
@@ -94,26 +100,37 @@ if (!isset($_SESSION["user_id"])) {
                     echo "";
                 }
 
-                $conn->close();
+                
                 ?>
             </div>
             <div id="reemo-container">
                 <?php
-                $query = "";
-                if($count!=0)
-                {
-                    if($count_vui>$count_buon){
-                        echo "<div class='h3-viet' id='result-emo'><p>Số nhật ký vui nhiều hơn buồn</p></div>";
-                    }
-                    elseif($count_vui<$count_buon){
-                        echo "<div class='h3-viet' id='result-emo'><p>Số nhật ký buồn nhiều hơn vui</p></div>";
-                    }
-                    else{
-                        echo "<div class='h3-viet' id='result-emo'><p>Cảm xúc trung hòa</p></div>";
-                    }
-                } else{
-                    echo "";
+                $date = getdate();
+                $day = $date['mday'];
+                $month = $date['mon'];
+                $year = $date['year'];
+                $sql_date = "SELECT * FROM journals WHERE date='$day' AND month='$month' AND year='$year' AND user_id='$userID';";
+                $result_date =$conn->query($sql_date);
+                if($result_date->num_rows==0){
+                    echo "<div class='h3-viet' id='result-emo'><p>Hãy viết thêm cây cho khu vườn của bạn nào!</p></div>";
                 }
+                else{
+                    if($count!=0)
+                    {
+                        if($count_vui>$count_buon){
+                            echo "<div class='h3-viet' id='result-emo'><p>Vườn cây của bạn thật xanh tốt!</p></div>";
+                        }
+                        elseif($count_vui<$count_buon){
+                            echo "<div class='h3-viet' id='result-emo'><p>Vườn cây của bạn bị úa vàng rồi!</p></div>";}
+                        else{
+                            echo "<div class='h3-viet' id='result-emo'><p>Vườn cây của bạn đồng đều nhỉ?</p></div>";
+                        }
+                    } else{
+                        echo "";
+                    }
+                }
+                $conn->close();
+                  
                 ?>
             </div>
         </div>
