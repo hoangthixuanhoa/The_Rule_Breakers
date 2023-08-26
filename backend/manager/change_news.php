@@ -44,8 +44,8 @@ if ($conn->connect_error) {
         </header>
         <main id="home-container">
             <h3 class="h3-content">Thay đổi bài viết</h3>
+                <div class='content-detail'>
                     <?php
-                    
                     $id = $_GET['id'];
                     $sql = "SELECT * FROM news WHERE id = '$id'";
                     $result = mysqli_query($conn,$sql);
@@ -58,14 +58,14 @@ if ($conn->connect_error) {
                             $status = $row['status'];
                         }
                         echo "<form method='post' action='update.php?id=$id' enctype=multipart/form-data>";
-                        echo "<lable for='img'>Ảnh</lable>";
+                        echo "<lable for='img'>Ảnh: </lable>";
                         echo "<input type='file' name='avatar' value='../../uploads/",$avatar,"' required><br>";
                         echo "<label for='title'>Tiêu đề: </label>";
                         echo "<input name='title' type='text' value='", $title,"' required><br>";
                         echo "<label for='description'>Mô tả ngắn: </label>";
                         echo "<input name='description' type='text' value='", $description,"' required><br>";
                         echo "<label for='content'>Nội dung: </label>";
-                        echo "<input name='content' type='text' value='", $content,"' required><br>";
+                        echo "<textarea name='content' type='text' required>", $content,"</textarea> <br>";
                         echo "<lable for='status'>Trạng thái</lable>";
                         echo "<select name='status'>";
                         if($status==0){
@@ -80,11 +80,11 @@ if ($conn->connect_error) {
                             echo $error;
                             unset($_SESSION['error_change_news']);
                         }
-                        echo "<br><input name='submit' type='submit' value='Lưu'>";
+                        echo "<br><input class='btn-clk' name='submit' type='submit' value='Lưu'>";
                         echo "</form>";
                     }
                     ?>
-                    
+                 </div>   
                 
         </main>
     </div>
