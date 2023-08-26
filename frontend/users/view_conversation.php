@@ -41,7 +41,6 @@ $result_contacted_username = $stmt_contacted_username->get_result();
 $contacted_username = $result_contacted_username->fetch_assoc()["username"];
 ?>
 
-?>
 
 <!DOCTYPE html>
 <html>
@@ -67,10 +66,11 @@ $contacted_username = $result_contacted_username->fetch_assoc()["username"];
         }
         .chat-message {
             background-color: #FAA5C4;
-            border-radius: 5px;
+            border-radius: 30px;
             padding: 10px;
             margin: 10px 0;
             max-width: 70%;
+            font-weight: 500;
         }
         body {
             font-family: Arial, sans-serif;
@@ -82,10 +82,9 @@ $contacted_username = $result_contacted_username->fetch_assoc()["username"];
         .conversation {
             max-width: 1200px;
             margin: 20px auto;
-            background-color: #fbb8d1;
             padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border: 3px solid;
+            border-radius: 30px;
             text-align: center;
         }
 
@@ -106,7 +105,6 @@ $contacted_username = $result_contacted_username->fetch_assoc()["username"];
         .chat-message strong {
             color: #2a2a2a;
             display: block;
-            margin-bottom: 5px;
         }
     </style>
 </head>
