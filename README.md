@@ -45,5 +45,11 @@ Trang web được phát triển bởi:
 ## Chạy chương trình
 - Trên thanh tìm kiếm của trình duyệt, gõ "localhost" và bấm Enter, trình duyệt sẽ tải trang "Index of"
 - Chọn vào tên thư mục đã chứa toàn bộ tệp của dự án (Mặc định có tên là "The_Rule_Breakers")
-- Trang frontend: Chọn "frontend" - Trang giao diện người dùng
+- Trang frontend: Chọn "frontend" - Trang chính người dùng và chuyên gia
 - Trang Backend: Chọn "backend" - Trang cho admin, dùng để quản lý người dùng và thêm các bài viết mới
+
+## Các ngôn ngữ sử dụng
+- Frontend: PHP, HTML, CSS, Javascript
+- Backend: PHP, HTML, CSS, Javascript
+- CSDL: PHPMyadmin
+- Phần mềm: XAMPP
