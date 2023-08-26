@@ -87,6 +87,10 @@ while ($user = $result_from_letters->fetch_assoc()) {
             color: #fff;
             cursor: pointer;
         }
+        ul a{
+            text-decoration: none;
+            color: black;
+        }
     </style>
 </head>
 <body>

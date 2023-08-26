@@ -7,7 +7,7 @@
 # Giới thiệu
 Trang web gồm các chức năng chính:
 - Đăng nhập và đăng ký tài khoản
-- Soạn thư cho chuyên gia và xem thư phản hồi
+- Soạn thư cho chuyên gia/người dùng và xem thư phản hồi
 - Viết nhật ký và xem nhật ký hàng ngày
 
 # Thành viên
@@ -41,5 +41,9 @@ Trang web được phát triển bởi:
 
 ## Chạy chương trình
 - Trên thanh tìm kiếm của trình duyệt, gõ "localhost" và bấm Enter, trình duyệt sẽ tải trang "Index of"
-- Chọn vào tên thư mục đã chứa toàn bộ tệp của dự án (Mặc định có tên là "EMO")
+- Chọn vào tên thư mục đã chứa toàn bộ tệp của dự án (Mặc định có tên là "The_Rule_Breakers")
+- * Trang frontend: Ấn vào folders frontend.
+- Trang frontend là trang giao diện người dùng
 - Cùng trải nghiệm thôi nào!
+- * Trang Backend: Ấn vào folders frontend.
+- Trang backend là trang cho admin, dùng để quản lý người dùng và thêm các bài viết mới
