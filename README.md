@@ -48,7 +48,7 @@ Trang web được phát triển bởi:
 - Trang frontend: Chọn "frontend" - Trang chính người dùng và chuyên gia
 - Trang Backend: Chọn "backend" - Trang cho admin, dùng để quản lý người dùng và thêm các bài viết mới
 
-## Các ngôn ngữ sử dụng
+## Các công cụ sử dụng
 - Frontend: PHP, HTML, CSS, Javascript
 - Backend: PHP, HTML, CSS, Javascript
 - CSDL: PHPMyadmin
