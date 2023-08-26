@@ -7,6 +7,7 @@
 # Giới thiệu
 Trang web gồm các chức năng chính:
 - Đăng nhập và đăng ký tài khoản
+- Đọc bài viết được đăng
 - Soạn thư cho chuyên gia/người dùng và xem thư phản hồi
 - Viết nhật ký và xem nhật ký hàng ngày
 
