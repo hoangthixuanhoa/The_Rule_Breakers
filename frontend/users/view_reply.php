@@ -1,13 +1,8 @@
 <?php
-session_start(); // Gọi session_start() chỉ một lần
+session_start();
 
 if (!isset($_SESSION["user_id"])) {
     header("Location: accounts/login.php");
-    exit();
-}
-
-if ($_SESSION["role"] == 'expert') {
-    header("Location: ../experts/expert_page.php");
     exit();
 }
 
@@ -22,50 +17,75 @@ if ($conn->connect_error) {
     die("Kết nối thất bại: " . $conn->connect_error);
 }
 
-// Lấy danh sách các thư đã gửi và các phản hồi từ chuyên gia từ bảng emails
-$sql_get_emails = "SELECT e.id, e.title, e.content, e.timestamp, e.reply_content, u.username AS expert_username
-                   FROM emails e
-                   LEFT JOIN users u ON e.receiver_id = u.id
-                   WHERE e.sender_id = ? AND e.reply_content IS NOT NULL
-                   ORDER BY e.timestamp DESC";
-$stmt_get_emails = $conn->prepare($sql_get_emails);
-$stmt_get_emails->bind_param("i", $_SESSION["user_id"]);
-$stmt_get_emails->execute();
-$result_get_emails = $stmt_get_emails->get_result();
+// Fetch from emails table
+$sql_contacted_from_emails = "SELECT DISTINCT u.id, u.username
+                              FROM users u 
+                              JOIN emails e ON u.id = e.receiver_id OR u.id = e.sender_id
+                              WHERE (e.sender_id = ? OR e.receiver_id = ?) AND u.id != ?
+                              ORDER BY u.username ASC";
+$stmt_from_emails = $conn->prepare($sql_contacted_from_emails);
+$stmt_from_emails->bind_param("iii", $_SESSION["user_id"], $_SESSION["user_id"], $_SESSION["user_id"]);
+$stmt_from_emails->execute();
+$result_from_emails = $stmt_from_emails->get_result();
 
-$sql_get_received_letters = "SELECT l.so, l.tieude, l.noidung, l.thoigian, u.username AS sender_username
-                            FROM letters l
-                            LEFT JOIN users u ON l.sogui = u.id
-                            WHERE l.sonhan = ?
-                            ORDER BY l.thoigian DESC";
-$stmt_get_letters = $conn->prepare($sql_get_received_letters);
-$stmt_get_letters->bind_param("i", $_SESSION["user_id"]);
-$stmt_get_letters->execute();
-$result_get_letters = $stmt_get_letters->get_result();
+// Fetch from letters table
+$sql_contacted_from_letters = "SELECT DISTINCT u.id, u.username
+                               FROM users u 
+                               JOIN letters l ON u.id = l.sonhan OR u.id = l.sogui
+                               WHERE (l.sogui = ? OR l.sonhan = ?) AND u.id != ?
+                               ORDER BY u.username ASC";
+$stmt_from_letters = $conn->prepare($sql_contacted_from_letters);
+$stmt_from_letters->bind_param("iii", $_SESSION["user_id"], $_SESSION["user_id"], $_SESSION["user_id"]);
+$stmt_from_letters->execute();
+$result_from_letters = $stmt_from_letters->get_result();
+
+// Combine and filter unique users
+$all_contacted_users = [];
+
+while ($user = $result_from_emails->fetch_assoc()) {
+    $all_contacted_users[$user['id']] = $user['username'];
+}
+while ($user = $result_from_letters->fetch_assoc()) {
+    $all_contacted_users[$user['id']] = $user['username'];
+}
+
+// Now, $all_contacted_users will have a list of unique contacted users combined from both tables.
 ?>
 
-<!-- Code HTML -->
+
+
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Xem phản hồi</title>
+    <title>Xem thư đã gửi</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../css/xemthu.css">
-    <?php
-        if(isset($_SESSION['msg_mail'])){
-            $msg = $_SESSION['msg_mail'];
-            echo "<script> alert('$msg');</script>";
-            unset($_SESSION['msg_mail']);
-        }
-    ?>
     <style>
-        #img-user{
-            height: 50px;
+        /* Styling for the list of contacted users */
+        .contact-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 20px 0;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
         }
-        #logo{
-            height: 60px;
+
+        .contact-list li {
+            padding: 10px;
+            margin-bottom: 5px;
+            background-color: #f4f4f4;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .contact-list li:hover {
+            background-color: #FAA5C4;
+            color: #fff;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -88,50 +108,16 @@ $result_get_letters = $stmt_get_letters->get_result();
 
     <br>
     <br>
-
-    <!-- Ô vuông "Hồi âm" -->
-    <div class="tatca">
-        <div class="tieude">
-            <span class="hoiam">Thư hồi âm</span>
-        </div>
-
-        <br>
-        <ul id="traloi">
+    <div class="container">
+        <h2>Danh sách người dùng bạn đã liên hệ</h2>
+        <ul class="contact-list">
             <?php
-                // Hiển thị danh sách các thư từ bảng emails
-                while ($row = $result_get_emails->fetch_assoc()) {
-                    $email_id = $row["id"];
-                    $reply_content = $row["reply_content"];
-                    $expert_username = $row["expert_username"];
-                    ?>
-                    <li>
-                        <div class="traloi">
-                            <h3 class="title">Thư hồi âm từ chuyên gia <?php echo $expert_username; ?></h3>
-                            <div class="content"><?php echo nl2br($reply_content); ?></div>
-                        </div>
-                        <br>
-                    </li>
-                    <?php
-                }
-
-                // Hiển thị danh sách các thư nhận từ bảng letters
-                while ($row = $result_get_letters->fetch_assoc()) {
-                    $letter_id = $row["so"];
-                    $title = $row["tieude"];
-                    $content = $row["noidung"];
-                    $sender_username = $row["sender_username"];
-                    ?>
-                    <li>
-                        <div class="traloi">
-                            <h3 class="title">Thư nhận từ người gửi <?php echo $sender_username; ?></h3>
-                            <div class="content"><?php echo nl2br($content); ?></div>
-                        </div>
-                        <br>
-                    </li>
-                    <?php
-                }
+            foreach ($all_contacted_users as $id => $username) {
+                echo '<li><a href="view_conversation.php?user_id=' . $id . '">' . $username . '</a></li>';
+            }
             ?>
         </ul>
     </div>
 </body>
 </html>
+
